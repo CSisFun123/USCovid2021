@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="d3.min.js" > </script>
+    <script src="https://d3js.org/queue.v1.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="app">
+
+    <div class="top-container" >
+        <div class="info">
+        <div class="info-box">
+            <div class="active-month"><h1 class="active-month-text"></h1></div>
+            <div class="total-cases">
+                <h2 class="total-text-inf" style="text-align: center">United States 2021 Covid-19 Report</h2>
+                <h2 class="total-text"></h2></div>
+            <!--            <div class="total-cases"><h1 class="total-cases-text">Jan</h1></div>-->
+            <!--            <div class="total-death"><h1 class="total-death-text">Jan</h1></div>-->
+        </div>
+       <div>
+           <button class="bar-invert"></button>
+       </div>
+        </div>
+        <div class="bar-chart-controls">
+
+        </div>
+
+<!--        <h1 class="bar-chart-label"></h1>-->
+    </div>
+
+    <div class="bar-chart-wrapper">
+
+        <div class="bar-chart-info-label"></div>
+        <div class=" label bar-chart-top-label"></div>
+        <div class="bar-chart"></div>
+        <div class=" label bar-chart-x-label"></div>
+    </div>
+    <div class="map-container">
+
+        <div class="label map-chart-top-label"></div>
+        <div class="map-chart">
+
+    </div></div>
+    <div class="tooltip">
+        <div class="row state-name"></div>
+        <div class="row totals"></div>
+        <div class="row date"></div>
+    </div>
+    <div class="tooltip-bar">
+        <div class="row state-name"></div>
+        <div class="row totals"></div>
+        <div class="types"></div>
+    </div>
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+        <div>Refreshing chart please wait.</div>
+    </div>
+</div>
+<div class="side-panel">
+    <button class="close-side-panel">Close</button>
+    <div class="line-area-container">
+        <div class="label line-area-top-label"></div>
+        <div class="line-area"></div>
+        <div class="label line-area-x-label"></div>
+    </div>
+    <div class=" label heatmap-top-label "></div>
+    <div class="heatmap-container">
+        <div class="label heatmap-y-label"></div>
+        <div class="heatmap-chart-wrapper">
+            <div class="heatmap-chart"></div>
+            <div class="label heatmap-x-label"></div>
+        </div>
+    </div>
+</div>
+<script src="Utils.js"></script>
+<script src="RenderMap.js"></script>
+<script src="RenderLineArea.js"></script>
+<script src="RenderMonthsButton.js"></script>
+<script src="RenderBarChart.js"></script>
+<script src="RenderCountiesHeatmap.js"></script>
+<script src="Chart.js"></script>
+<script src="app.js" > </script>
+</body>
+</html>
