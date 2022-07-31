@@ -7,16 +7,13 @@ class RenderMap {
     update(newData) {
         this.data = newData.data;
 
-        d3
-            .select('.map-wrapper')
-            .selectAll('svg')
-            .remove();
+        d3.select('.map-wrapper').selectAll('svg').remove();
         this.render();
     }
 
     render() {
-        const totalFieldName = this.props.fields.find(f => f.isTotal).label;
-        console.log(totalFieldName,'sss')
+        const totalFieldName = this.props.fields.find((f) => f.isTotal).label;
+
         const that = this;
         const mapWidth = this.props.width - this.props.legendOffset;
         const projection = d3
@@ -25,8 +22,7 @@ class RenderMap {
             .scale([1000]);
 
         const path = d3.geoPath().projection(projection);
-        d3
-            .select(this.props.selector).select('svg').remove()
+        d3.select(this.props.selector).select('svg').remove();
         this.svg = d3
             .select(this.props.selector)
             .append('svg')
@@ -38,9 +34,9 @@ class RenderMap {
             dataArray.push(parseFloat(this.data[d][totalFieldName]));
         }
 
-        const minVal = d3.min(this.data, d => d[totalFieldName]);
-        const maxVal = d3.max(this.data, d => d[totalFieldName]);
-        console.log(maxVal,'minVal')
+        const minVal = d3.min(this.data, (d) => d[totalFieldName]);
+        const maxVal = d3.max(this.data, (d) => d[totalFieldName]);
+
         const ramp = d3
             .scaleLinear()
             .domain([minVal, maxVal])
@@ -48,7 +44,7 @@ class RenderMap {
 
         for (let i = 0; i < this.data.length; i++) {
             const dataState = this.data[i].state;
-            const putDataToMap = this.props.fields.map(gt => ({
+            const putDataToMap = this.props.fields.map((gt) => ({
                 ...gt,
                 value: parseFloat(this.data[i][gt.label]),
             }));
@@ -57,7 +53,7 @@ class RenderMap {
                 let jsonState = this.props.map.features[j].properties.name;
 
                 if (dataState == jsonState) {
-                    putDataToMap.forEach(item => {
+                    putDataToMap.forEach((item) => {
                         this.props.map.features[j].properties[item.label] =
                             item.value;
                     });
@@ -79,21 +75,24 @@ class RenderMap {
             .attr('stroke', '#fff')
             .attr('stroke-width', '1')
             .attr('fill', '#fff')
-            .on('mouseover', function(d) {
+            .on('mouseover', function (d) {
                 that.createToolTip(d);
             })
-            .on('mouseout', function(d) {
+            .on('mouseout', function (d) {
                 d3.select('.tooltip-map').style('display', 'none');
             });
-        states.selectAll("path")
+        states
+            .selectAll('path')
             .transition()
             .duration(1)
-            .attr('fill', function(d) {
+            .attr('fill', function (d) {
                 return d.properties[totalFieldName]
                     ? ramp(d.properties[totalFieldName])
                     : 'lightgray';
             })
-            .delay(function(d,i){return(i*20)})
+            .delay(function (d, i) {
+                return i * 20;
+            });
         this.createLegend(minVal, maxVal);
     }
 
@@ -105,7 +104,7 @@ class RenderMap {
                 'transform',
                 `translate(${this.props.width - this.props.legendOffset},100)`,
             );
-    const legendString = `Total ${this.props.legend}`
+        const legendString = `Total ${this.props.legend}`;
         legendSVG
             .append('text')
             .text(legendString)
@@ -159,20 +158,16 @@ class RenderMap {
     }
 
     createToolTip(object) {
-        console.log(object,'ss')
-        d3
-            .select('.tooltip')
+        d3.select('.tooltip')
             .style('left', d3.event.pageX - 200 + 'px')
             .style('top', d3.event.pageY + 20 + 'px')
             .style('display', 'flex');
 
         const selector = d3.select('.tooltip');
-        const totalFieldName = this.props.fields.find(f => f.isTotal).label;
+        const totalFieldName = this.props.fields.find((f) => f.isTotal).label;
         selector.select('.state-name').text(object.properties.name);
         selector
             .select('.totals')
             .text(`Total : ${object.properties[totalFieldName]}`);
-
-
     }
 }

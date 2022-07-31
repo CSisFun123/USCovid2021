@@ -2,20 +2,16 @@ class Chart {
     constructor(props) {
         this.props = props;
         this.data = props.data;
-
     }
 
-    update(){
-        const {data,usMapData} = this.props;
-
+    update() {
+        const { data, usMapData } = this.props;
         const barChartProps = {
             data: data,
             rawdata: this.props.rawdata,
         };
         const barChart = new RenderBarChart(barChartProps);
         barChart.render();
-
-
         const mainEl = d3.select(mapChartConfig.container);
         const h = mainEl.node().getBoundingClientRect().height;
         const w = mainEl.node().getBoundingClientRect().width;
@@ -25,7 +21,6 @@ class Chart {
                 isTotal: true,
             },
         ];
-
         const mapProps = {
             map: usMapData,
             data,
@@ -41,11 +36,10 @@ class Chart {
             selector: '.map-chart',
             fields: mapFields,
             legend: BAR_CHART_CONFIG[window.visualmode].mode,
-            month:window.month
+            month: window.month,
         };
 
         const createMap = new RenderMap(mapProps);
         createMap.render();
-
     }
 }

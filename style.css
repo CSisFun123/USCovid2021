@@ -82,7 +82,7 @@ button.active {
   padding: 5px;
 }
 #app {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -94,7 +94,6 @@ button.active {
   height: 10%;
   padding: 1rem;
   margin-bottom: 1rem;
-  border: 2px solid #266180;
   display: flex;
   flex-direction: column;
 }
@@ -109,8 +108,8 @@ button.active {
 #app .bar-chart-wrapper {
   padding: 1rem;
   width: 90%;
-  height: 40%;
-  border: 2px solid #266180;
+  height: 500px;
+  border-top: 2px solid #266180;
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -132,11 +131,11 @@ button.active {
 }
 #app .map-container {
   padding: 1rem;
-  height: 40%;
+  height: 500px;
   width: 90%;
   display: flex;
   flex-direction: column;
-  border: 2px solid #266180;
+  border-top: 2px solid #266180;
 }
 #app .map-container .map-chart {
   width: 100%;
@@ -197,7 +196,8 @@ button.active {
 .loading {
   opacity: 0.1;
 }
-.loader-wrapper {
+.loader-wrapper,
+.loader-wrapper-data {
   position: absolute;
   display: none;
   left: 50%;
@@ -234,4 +234,26 @@ button.active {
   100% {
     transform: rotate(360deg);
   }
+}
+.total-cases h2 {
+  margin: 0;
+}
+.total-cases .total-text {
+  padding-bottom: 10px;
+}
+.user-infomation {
+  display: flex;
+  background: gainsboro;
+  width: auto;
+  padding: 5px;
+  max-width: 250px;
+  align-items: center;
+}
+.user-infomation .info-icon {
+  background: url(info.png);
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 10px;
 }

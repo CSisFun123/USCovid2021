@@ -93,8 +93,8 @@ class Utils {
         return dataByMoth;
     }
 
-     filterMonthData  (dataByMonth, month)  {
+    filterMonthData(dataByMonth, month) {
         const findIndex = dataByMonth.findIndex((dm) => dm.month == month);
         return dataByMonth[findIndex];
-    };
+    }
 }

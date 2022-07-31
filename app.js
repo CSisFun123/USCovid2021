@@ -1,3 +1,5 @@
+d3.selectAll('.loader-wrapper-data').style('display', 'flex');
+
 queue()
     .defer(d3.csv, 'us.csv')
     .defer(d3.csv, 'us-states.csv')
@@ -50,20 +52,18 @@ const BAR_CHART_CONFIG = {
     },
 };
 const LINE_CHART_CONFIG = {
-    cases:{
+    cases: {
         xdata: 'statecode',
         ydata: 'avgeragecases',
         container: '.line-area',
     },
-    deaths:{
+    deaths: {
         xdata: 'statecode',
         ydata: 'avgeragedeaths',
         container: '.line-area',
-    }
+    },
 };
-const lineAreaConfig = {
-
-};
+const lineAreaConfig = {};
 const mapChartConfig = {
     container: '.map-chart',
 };
@@ -72,19 +72,19 @@ const heatmapChartConfig = {
 };
 const formatYTickValue = d3.format('.2s');
 
-const attachEventToInvert = (dataByMonth,usMapData) => {
+const attachEventToInvert = (dataByMonth, usMapData) => {
     d3.select('.bar-invert').on('click', function () {
         const invertTo = d3.select(this).attr('invert');
-        console.log('ddd')
+        console.log('ddd');
         const utils = new Utils();
         const monthData = utils.filterMonthData(dataByMonth, window.month);
         window.visualmode = invertTo;
-        const chartProps ={
-            data:monthData['data'],
-            rawdata:monthData,
-            usMapData
-        }
-        const chart = new Chart(chartProps)
+        const chartProps = {
+            data: monthData['data'],
+            rawdata: monthData,
+            usMapData,
+        };
+        const chart = new Chart(chartProps);
         chart.update();
 
         const invertText = `View ${BAR_CHART_CONFIG[invertTo]['invert']}`;
@@ -98,7 +98,7 @@ function ready(err, results) {
     const statesdata = results[1];
     const countiesdata = results[2];
     const statecodes = results[3];
-    const usMapData = results[4]
+    const usMapData = results[4];
     const utils = new Utils();
     const dataByMonth = utils.formatStateDateByMonth(
         statesdata,
@@ -106,30 +106,31 @@ function ready(err, results) {
         statecodes,
     );
     const monthData = utils.filterMonthData(dataByMonth, MONTH_START);
-    attachEventToInvert(dataByMonth,usMapData);
+    d3.selectAll('.loader-wrapper-data').style('display', 'none');
+
+    attachEventToInvert(dataByMonth, usMapData);
     window.visualmode = BAR_CHART_CONFIG.cases.mode;
     window.month = MONTH_START;
     const monthsButtonProps = {
         data: dataByMonth,
         month: MONTH_START,
-        usMapData
+        usMapData,
     };
     const monthButtons = new RenderMonthsButton(monthsButtonProps);
     monthButtons.render();
-    const chartProps ={
-        data:monthData['data'],
-        rawdata:monthData,
-        usMapData
-    }
+    const chartProps = {
+        data: monthData['data'],
+        rawdata: monthData,
+        usMapData,
+    };
 
-    const chart = new Chart(chartProps)
+    const chart = new Chart(chartProps);
     chart.update();
     const invertText = `View ${BAR_CHART_CONFIG[window.visualmode].invert}`;
     d3.select('.bar-invert')
         .attr('invert', BAR_CHART_CONFIG[window.visualmode].invert)
         .text(invertText);
-    d3.select('.close-side-panel').on('click',function (){
-
-        d3.select('.side-panel').style('display','none')
-    })
+    d3.select('.close-side-panel').on('click', function () {
+        d3.select('.side-panel').style('display', 'none');
+    });
 }
