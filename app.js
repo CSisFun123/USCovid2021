@@ -106,7 +106,7 @@ function ready(err, results) {
         statecodes,
     );
     const monthData = utils.filterMonthData(dataByMonth, MONTH_START);
-    d3.selectAll('.loader-wrapper-data').style('display', 'none');
+
 
     attachEventToInvert(dataByMonth, usMapData);
     window.visualmode = BAR_CHART_CONFIG.cases.mode;
@@ -126,6 +126,7 @@ function ready(err, results) {
 
     const chart = new Chart(chartProps);
     chart.update();
+    d3.selectAll('.loader-wrapper-data').style('display', 'none');
     const invertText = `View ${BAR_CHART_CONFIG[window.visualmode].invert}`;
     d3.select('.bar-invert')
         .attr('invert', BAR_CHART_CONFIG[window.visualmode].invert)

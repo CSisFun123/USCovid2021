@@ -110,8 +110,12 @@ class RenderBarChart {
     }
     createToolTip(object) {
         const barChartConfig = BAR_CHART_CONFIG[window.visualmode];
+        let left = 0;
+        if(d3.event.pageX - 200 > 0 ){
+            left =d3.event.pageX - 200
+        }
         d3.select('.tooltip')
-            .style('left', d3.event.pageX - 200 + 'px')
+            .style('left', left + 'px')
             .style('top', d3.event.pageY + 20 + 'px')
             .style('display', 'flex');
 
